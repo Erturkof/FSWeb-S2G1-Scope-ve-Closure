@@ -18,7 +18,7 @@
 function ilkiniDon(stringArray, callback) {
   return callback(stringArray[0])
 }
-console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
+//console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
 
 // Başlangıç Challenge'ı Sonu
 
@@ -44,6 +44,7 @@ function skorArtirici() {
   }
 }
 
+
 const skor1 = skorArtirici();
 
 // skor2 kodları
@@ -52,6 +53,11 @@ let skor = 0;
 function skor2() {
   return skor++;
 }
+// 1. Soru: skor 1 fonksiyonu içerisindeki değişkenler function scope da tanımlanmaktadır ve dışarıdan bu değişkenlere erişilemez.
+// Skor 2 de is değişkenler global scope üzerindedir ve her yerden erişilebilir.
+// 2. Soru: Skor 1 fonksiyonu bir closure kullanmaktadır. Bu içerisindeki fonksiyondur.
+// 3. Soru:  Birden fazla bağımsız puanlama sistemine ihtiyaç duyduğumuzda ve skor değişkenine dışarıdan direkt manipülasyonu
+// engellemek istediğimizde skor 1 fonksiyonu kullanılır. Tek bir global skor değişkeni yeterli olduğunda skor 2 yi kullanabiliriz.
 
 
 /* Görev 2: takimSkoru() 
@@ -64,8 +70,18 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru(){
+   const minScore= 10;
+   const maxScore = 25;
+   let randomScore; 
+    while (true) {
+      const randomValue = Math.floor(Math.random()*100);
+      randomScore = randomValue;
+      if (randomValue >= minScore && randomValue <= maxScore){
+        break;
+      }
+    }
+    return randomScore;
 }
 
 
@@ -86,8 +102,21 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 }
 */ 
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+function macSonucu(takimSkoru, number){
+  const currentScore = {
+    "EvSahibi": 0,
+    "KonukTakim": 0
+  }
+  let totalEvSahibi = 0;
+  let totalKonukTakim = 0;
+  for (let i = 1; i <= number; i++) {
+    totalEvSahibi = takimSkoru() + totalEvSahibi;
+    totalKonukTakim = takimSkoru() + totalKonukTakim;
+  }
+  currentScore.EvSahibi = totalEvSahibi;
+  currentScore.KonukTakim = totalKonukTakim;
+
+  return currentScore;
 }
 
 
@@ -109,9 +138,16 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
-
+function periyotSkoru(takimSkoru) {
+  let score = {
+    "EvSahibi": 0,
+    "KonukTakim": 0
+  } 
+  let evSahibiScore = takimSkoru();
+  let konukTakimScore = takimSkoru();
+  score.EvSahibi = evSahibiScore;
+  score.KonukTakim = konukTakimScore;
+  return score;
 }
 
 
